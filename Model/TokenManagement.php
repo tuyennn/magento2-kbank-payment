@@ -6,7 +6,6 @@ use GhoSter\KbankPayments\Api\Data\MetaInterface;
 use GhoSter\KbankPayments\Api\Data\TokenInterface;
 use GhoSter\KbankPayments\Api\TokenManagementInterface;
 use GhoSter\KbankPayments\Api\TokenRepositoryInterface;
-use GhoSter\KbankPayments\Gateway\Config;
 use GhoSter\KbankPayments\Api\TransactionProcessorInterface;
 use Magento\Sales\Api\Data\OrderInterfaceFactory;
 use GhoSter\KbankPayments\Model\MetaFactory;
@@ -37,7 +36,7 @@ class TokenManagement implements TokenManagementInterface
      * @param TokenRepositoryInterface $tokenRepository
      * @param TransactionProcessorInterface $transactionProcessor
      * @param OrderInterfaceFactory $orderFactory
-     * @param \GhoSter\KbankPayments\Model\MetaFactory $metaFactory
+     * @param MetaFactory $metaFactory
      */
     public function __construct(
         TokenRepositoryInterface $tokenRepository,
@@ -57,11 +56,6 @@ class TokenManagement implements TokenManagementInterface
     public function saveTokenForOrder(TokenInterface $token, string $orderIncrement): TokenInterface
     {
         $token->setOrderId($orderIncrement);
-
-        if (!$token->getTerminalId()) {
-            $token->setTerminalId($this->config->getTerminalId());
-        }
-
         return $this->tokenRepository->save($token);
     }
 

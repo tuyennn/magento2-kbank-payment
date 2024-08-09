@@ -68,9 +68,9 @@ class Config extends \Magento\Payment\Gateway\Config\Config
      * @param int|null $storeId
      * @return string
      */
-    public function getPublicKey(?int $storeId = null): ?string
+    public function getPublicKey(?int $storeId = null): string
     {
-        $publicKey = $this->getGeneralConfig(Config::KEY_PUBLIC_KEY, $storeId);
+        $publicKey = (string)$this->getGeneralConfig(Config::KEY_PUBLIC_KEY, $storeId);
 
         if (mb_detect_encoding($publicKey) !== 'ASCII') {
             return '';
@@ -85,9 +85,9 @@ class Config extends \Magento\Payment\Gateway\Config\Config
      * @param ?int $storeId
      * @return string
      */
-    public function getSecretKey(?int $storeId = null): ?string
+    public function getSecretKey(?int $storeId = null): string
     {
-        $secretKey = $this->getGeneralConfig(Config::KEY_SECRET_KEY, $storeId);
+        $secretKey = (string)$this->getGeneralConfig(Config::KEY_SECRET_KEY, $storeId);
 
         if (mb_detect_encoding($secretKey) !== 'ASCII') {
             return '';
@@ -102,9 +102,9 @@ class Config extends \Magento\Payment\Gateway\Config\Config
      * @param ?int $storeId
      * @return string
      */
-    public function getShopName(?int $storeId = null): ?string
+    public function getShopName(?int $storeId = null): string
     {
-        return $this->getGeneralConfig(Config::KEY_SHOP_NAME, $storeId);
+        return (string)$this->getGeneralConfig(Config::KEY_SHOP_NAME, $storeId);
     }
 
     /**
@@ -113,7 +113,7 @@ class Config extends \Magento\Payment\Gateway\Config\Config
      * @param ?int $storeId
      * @return string
      */
-    public function getEnvironment(?int $storeId = null): ?string
+    public function getEnvironment(?int $storeId = null): string
     {
         $config = $this->getGeneralConfig(Config::KEY_ENVIRONMENT, $storeId);
         return $config ?? Environment::ENVIRONMENT_SANDBOX;
@@ -136,7 +136,7 @@ class Config extends \Magento\Payment\Gateway\Config\Config
      * @param ?int $storeId
      * @return string
      */
-    public function getApiUrl(?int $storeId = null): ?string
+    public function getApiUrl(?int $storeId = null): string
     {
         $environment = $this->getEnvironment($storeId);
 
@@ -151,9 +151,9 @@ class Config extends \Magento\Payment\Gateway\Config\Config
      * @param ?int $storeId
      * @return string
      */
-    public function getJsSrc(?int $storeId = null): ?string
+    public function getJsSrc(?int $storeId = null): string
     {
-        $environment = $this->getEnvironment($storeId);
+        $environment = (string)$this->getEnvironment($storeId);
 
         return $environment === Environment::ENVIRONMENT_SANDBOX
             ? self::ENDPOINT_JS_URL_SANDBOX
@@ -164,7 +164,7 @@ class Config extends \Magento\Payment\Gateway\Config\Config
      * Expired time
      *
      * @param ?int $storeId
-     * @return int
+     * @return ?int
      */
     public function getExpiredPendingTimes(?int $storeId = null): ?int
     {
