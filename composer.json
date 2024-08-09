@@ -1,0 +1,54 @@
+{
+    "name": "ghoster/module-kbankpayments",
+    "description": "Kasikornbank Magento 2 Payments Gateway Module",
+    "keywords": [
+        "magento 2",
+        "magento",
+        "m2",
+        "kasikornbank payment",
+        "kbank payment",
+        "magento 2 extension",
+        "magento 2 extension free"
+    ],
+    "require": {
+        "magento/framework": "^103.0"
+    },
+    "minimum-stability": "stable",
+    "archive": {
+        "exclude": [
+            "/.gitignore",
+            "/grumphp.yml",
+            "/pdepend.xml",
+            "/phpstan.neon",
+            "/phpunit.xml",
+            "/phpcs.xml",
+            "/phpmd.xml",
+            "/package.json",
+            "/.eslintrc.json",
+            "/.eslintignore",
+            "/tests",
+            "/.github"
+        ]
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Tuyen Nguyen",
+            "email": "thinghost76@gmail.com",
+            "homepage": "https://thinghost.info/"
+        }
+    ],
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "GhoSter\\KbankPayments\\": ""
+        }
+    }
+}

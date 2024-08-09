@@ -1,0 +1,97 @@
+
+//
+//  Common
+//  _____________________________________________
+@payment-active__color: #00ab86;
+
+& when (@media-common = true) {
+    .checkout-payment-method {
+        .payment-method-content {
+            &#kbank-payment-method {
+                padding-top: 15px;
+
+                label {
+                    font-size: 1em;
+                    margin-bottom: 10px;
+
+                    &::after {
+                        content: '*';
+                        color: #e02b27;
+                        font-size: 1.2rem;
+                        margin: 0 0 0 5px;
+                    }
+                }
+
+                .field {
+                    margin-bottom: 10px;
+                }
+
+                .input-mask {
+                    border: 1px solid #ccc !important;
+                    border-radius: 5px;
+                    padding: 3px 10px 2px;
+                    width: 225px;
+                }
+
+                iframe {
+                    width: 250px;
+                }
+            }
+        }
+    }
+
+    .kbank-installment {
+        .payment-method-type {
+            display: flex;
+        }
+
+        .bank-installment-item {
+            background-color: #F2F2F2;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            margin: 5px;
+            position: relative;
+            padding: 10px;
+            text-align: center;
+            min-width: 64px;
+            min-height: 32px;
+
+            label {
+                padding-left: 0 !important;
+
+                &:before {
+                    display: none !important;
+                }
+            }
+
+            &.selected-item {
+                border-color: @payment-active__color;
+            }
+
+            img {
+                max-width: 80px;
+            }
+
+            label {
+                display: block;
+                margin-top: 5px;
+                text-align: center;
+            }
+        }
+    }
+
+    .checkout-index-index {
+        .modal-popup.kbank-embedded-form-box {
+            .modal-content {
+                padding-bottom: 20px;
+            }
+        }
+    }
+
+    .kbank-embedded-form-box {
+        .kbank.iframe {
+            height: 100%;
+            min-height: 600px;
+        }
+    }
+}

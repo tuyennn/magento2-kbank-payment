@@ -1,0 +1,67 @@
+{
+    "ghoster_kbank_token": {
+        "column": {
+            "token_id": true,
+            "customer_id": true,
+            "token": true,
+            "order_id": true,
+            "paymentMethods": true,
+            "created_time": true,
+            "mid": true,
+            "dcc_currency": true,
+            "smartpayid": true,
+            "term": true,
+            "saveCard": true,
+            "cardid": true,
+            "campaign_id": true,
+            "terminal_id": true
+        },
+        "index": {
+            "GHOSTER_KBANK_TOKEN_TOKEN_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "GHOSTER_KBANK_TOKEN_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    },
+    "ghoster_kbank_meta": {
+        "column": {
+            "meta_id": true,
+            "order_id": true,
+            "customer_id": true,
+            "charge_id": true,
+            "object": true,
+            "amount": true,
+            "currency": true,
+            "transaction_state": true,
+            "created": true,
+            "status": true,
+            "approval_code": true,
+            "livemode": true,
+            "metadata": true,
+            "failure_code": true,
+            "failure_message": true,
+            "redirect_url": true,
+            "card_id": true,
+            "card_brand": true,
+            "issuer_bank": true,
+            "masked_pan": true,
+            "ref_1": true,
+            "ref_2": true,
+            "ref_3": true,
+            "baht_amount": true,
+            "rate": true,
+            "converted_amount": true,
+            "converted_currency_code": true,
+            "converted_currency_name": true,
+            "f63": true,
+            "mid": true
+        },
+        "index": {
+            "GHOSTER_KBANK_META_META_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

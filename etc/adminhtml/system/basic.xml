@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="basic" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Credentials Settings</label>
+        <comment>&lt;p&gt;You will need to set your API keys before you can accept payments. If you do not yet have a Kbank account, please &lt;a href="https://kasikornbank.com" target="_blank" rel="noopener noreferrer"&gt;click here&lt;/a&gt; to register.&lt;/p&gt;
+
+            &lt;p&gt;For additional technical support contact &lt;a href="mailto:info@kasikornbank.com" target="_blank" rel="noopener noreferrer"&gt;info@kasikornbank.com&lt;/a&gt;. Or access &lt;a href="https://apiportal.kasikornbank.com/product/content/All/K%20PAYMENT%20GATEWAY/Getting%20Started/K%20PAYMENT%20GATEWAY" target="_blank" rel="noopener noreferrer"&gt;API Portal&lt;/a&gt;. &lt;/p&gt;
+        </comment>
+
+        <field id="public_key" translate="label" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Public Key</label>
+            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+            <config_path>ghoster_kbank/general/public_key</config_path>
+        </field>
+        <field id="secret_key" translate="label" sortOrder="60" type="obscure" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Secret Key</label>
+            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+            <config_path>ghoster_kbank/general/secret_key</config_path>
+        </field>
+        <field id="environment" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Environment</label>
+            <source_model>GhoSter\KbankPayments\Model\Adminhtml\Source\Environment</source_model>
+            <config_path>ghoster_kbank/general/environment</config_path>
+        </field>
+        <field id="shop_name" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+            <label>Shop Name</label>
+            <config_path>ghoster_kbank/general/shop_name</config_path>
+        </field>
+        <field id="is_3ds_support" translate="label" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+            <label>3DS</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>ghoster_kbank/general/is_3ds_support</config_path>
+        </field>
+        <field id="debug" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+            <label>Debug</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>ghoster_kbank/general/debug</config_path>
+        </field>
+        <field id="auto_invoice" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+            <label>Auto Create Invoice</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>ghoster_kbank/general/auto_invoice</config_path>
+        </field>
+        <field id="expired_pending_time" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+            <label>Expired Pending Time(minutes)</label>
+            <validate>validate-digits validate-digits-range digits-range-1-</validate>
+            <config_path>ghoster_kbank/general/expired_pending_time</config_path>
+        </field>
+        <field id="notify_uri" translate="label" type="label" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Notify Response Endpoint</label>
+            <comment><![CDATA[You must request the above url to setup an Card Payment Notify URL at <a href="https://kasikornbank.com/portal/"><strong>Kbank Portal</strong></a>.]]></comment>
+            <frontend_model>GhoSter\KbankPayments\Block\Adminhtml\Config\Form\Field\Webhook</frontend_model>
+        </field>
+    </group>
+</include>

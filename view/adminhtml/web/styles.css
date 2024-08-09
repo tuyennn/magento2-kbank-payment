@@ -1,0 +1,4 @@
+.kbank-section .kbank-payment-logo {background: url("./images/logo-kbank.png")  no-repeat 0 40% / 18rem auto;
+    height: 100px; width: auto; padding-left: 20rem; display:inline-block; vertical-align: middle;}
+.kbank-section .button-container {float: right;}
+.kbank-section .kbank-payment-text { display: inline-block; vertical-align: middle; width: 50%}

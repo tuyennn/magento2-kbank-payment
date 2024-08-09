@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- Validate order status -->
+    <route url="/V1/kbank/:orderId/validate-order-status/" method="GET">
+        <service class="GhoSter\KbankPayments\Api\OrderInformationManagementInterface" method="validateOrderStatus"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+
+    <!-- Payment Gateway Notify -->
+    <route method="POST" url="/V1/kbank/payment/notify">
+        <service class="GhoSter\KbankPayments\Api\NotifyManagementInterface" method="notify"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

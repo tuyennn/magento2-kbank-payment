@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="embedded_installment" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Kbank Embedded Installment Settings</label>
+        <comment>&lt;p&gt;The settings on these fields should be related only with Embedded Settings&lt;/p&gt;</comment>
+
+        <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+            <label>Enabled</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/kbank_embedded_installment/active</config_path>
+        </field>
+        <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+            <label>Title</label>
+            <config_path>payment/kbank_embedded_installment/title</config_path>
+        </field>
+        <field id="payment_action" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+            <label>Payment Action</label>
+            <source_model>GhoSter\KbankPayments\Model\Adminhtml\Source\PaymentAction</source_model>
+            <config_path>payment/kbank_embedded_installment/payment_action</config_path>
+        </field>
+        <field id="merchant_id" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+            <label>Merchant Id(MID)</label>
+            <config_path>payment/kbank_embedded_installment/merchant_id</config_path>
+        </field>
+        <field id="terminal_id" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+            <label>Terminal Id(TID)</label>
+            <config_path>payment/kbank_embedded_installment/terminal_id</config_path>
+        </field>
+        <field id="predefine_installment" translate="label" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+            <label>Pre-defined Installment Terms for selection on checkout</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>payment/kbank_embedded_installment/predefine_installment</config_path>
+            <depends>
+                <field id="is_installment_support">1</field>
+            </depends>
+        </field>
+        <field id="smartpay_id" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+            <label>Smart Pay ID</label>
+            <config_path>payment/kbank_embedded_installment/smartpay_id</config_path>
+            <depends>
+                <field id="is_installment_support">1</field>
+                <field id="predefine_installment">0</field>
+            </depends>
+        </field>
+        <field id="installment_info" translate="label" type="text" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Installment Information</label>
+            <frontend_model>GhoSter\KbankPayments\Block\Adminhtml\System\Config\SmartPayId</frontend_model>
+            <backend_model>GhoSter\KbankPayments\Model\Config\Backend\SmartPayId</backend_model>
+            <comment><![CDATA[Term and SmartPay Id must be provided by Kbank]]></comment>
+            <depends>
+                <field id="is_installment_support">1</field>
+                <field id="predefine_installment">1</field>
+            </depends>
+            <config_path>payment/kbank_embedded_installment/installment_info</config_path>
+        </field>
+        <field id="order_status" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+            <label>New Order Status</label>
+            <source_model>Magento\Sales\Model\Config\Source\Order\Status\Newprocessing</source_model>
+            <config_path>payment/kbank_embedded_installment/order_status</config_path>
+        </field>
+        <field id="allowspecific" translate="label" type="allowspecific" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+            <label>Payment from Applicable Countries</label>
+            <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+            <config_path>payment/kbank_embedded_installment/allowspecific</config_path>
+        </field>
+        <field id="specificcountry" translate="label" type="multiselect" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Payment from Specific Countries</label>
+            <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+            <config_path>payment/kbank_embedded_installment/specificcountry</config_path>
+        </field>
+        <field id="sort_order" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Sort Order</label>
+            <frontend_class>validate-number</frontend_class>
+            <config_path>payment/kbank_embedded_installment/sort_order</config_path>
+        </field>
+        <field id="instructions" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="180" translate="label" type="textarea">
+            <label>Instructions</label>
+            <config_path>payment/kbank_embedded_installment/instructions</config_path>
+        </field>
+    </group>
+</include>

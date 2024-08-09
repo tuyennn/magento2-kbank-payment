@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ghoster_kbank>
+            <general>
+                <environment>sandbox</environment>
+                <shop_name>Your Shop Name</shop_name>
+                <is_3ds_support>1</is_3ds_support>
+                <debug>1</debug>
+                <auto_invoice>1</auto_invoice>
+                <expired_pending_time>10</expired_pending_time>
+                <public_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <secret_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </general>
+        </ghoster_kbank>
+        <payment>
+            <kbank_embedded_installment>
+                <active>0</active>
+                <model>GhoSterKbankEmbeddedInstallmentFacade</model>
+                <title>Kbank Embedded Installment</title>
+                <order_status>pending</order_status>
+                <can_use_checkout>1</can_use_checkout>
+                <can_use_internal>0</can_use_internal>
+                <can_capture_partial>0</can_capture_partial>
+                <can_authorize>0</can_authorize>
+                <can_refund>1</can_refund>
+                <can_refund_partial_per_invoice>0</can_refund_partial_per_invoice>
+                <can_capture>0</can_capture>
+                <can_void>1</can_void>
+                <can_accept_payment>0</can_accept_payment>
+                <can_deny_payment>0</can_deny_payment>
+                <can_cancel>1</can_cancel>
+                <can_review_payment>1</can_review_payment>
+                <can_edit>0</can_edit>
+                <can_fetch_transaction_info>1</can_fetch_transaction_info>
+                <can_fetch_transaction_information>1</can_fetch_transaction_information>
+                <smartpay_id>0001</smartpay_id>
+                <allowspecific>0</allowspecific>
+                <is_installment_support>1</is_installment_support>
+                <predefine_installment>0</predefine_installment>
+                <installment_info>
+                    <item1>
+                        <smartpay_id>0001</smartpay_id>
+                        <payment_term>3</payment_term>
+                        <installment_title>3 - 0.00%</installment_title>
+                        <status>1</status>
+                    </item1>
+                    <item2>
+                        <smartpay_id>0001</smartpay_id>
+                        <payment_term>4</payment_term>
+                        <installment_title>4 - 0.00%</installment_title>
+                        <status>1</status>
+                    </item2>
+                    <item3>
+                        <smartpay_id>0001</smartpay_id>
+                        <payment_term>5</payment_term>
+                        <installment_title>5 - 0.00%</installment_title>
+                        <status>1</status>
+                    </item3>
+                    <item4>
+                        <smartpay_id>0001</smartpay_id>
+                        <payment_term>6</payment_term>
+                        <installment_title>6 - 0.00%</installment_title>
+                        <status>1</status>
+                    </item4>
+                    <item5>
+                        <smartpay_id>0002</smartpay_id>
+                        <payment_term>3</payment_term>
+                        <installment_title>3 - 0.65%</installment_title>
+                        <status>1</status>
+                    </item5>
+                    <item6>
+                        <smartpay_id>0002</smartpay_id>
+                        <payment_term>4</payment_term>
+                        <installment_title>4 - 0.65%</installment_title>
+                        <status>1</status>
+                    </item6>
+                    <item7>
+                        <smartpay_id>0002</smartpay_id>
+                        <payment_term>5</payment_term>
+                        <installment_title>5 - 0.65%</installment_title>
+                        <status>1</status>
+                    </item7>
+                    <item8>
+                        <smartpay_id>0002</smartpay_id>
+                        <payment_term>6</payment_term>
+                        <installment_title>6 - 0.65%</installment_title>
+                        <status>1</status>
+                    </item8>
+                </installment_info>
+                <expired_pending_time>10</expired_pending_time>
+            </kbank_embedded_installment>
+            <kbank_embedded_fullpayment>
+                <active>0</active>
+                <model>GhoSterKbankEmbeddedFullPaymentFacade</model>
+                <title>Kbank Embedded Full Payment</title>
+                <order_status>pending</order_status>
+                <can_use_checkout>1</can_use_checkout>
+                <can_use_internal>0</can_use_internal>
+                <can_capture_partial>0</can_capture_partial>
+                <can_authorize>0</can_authorize>
+                <can_refund>1</can_refund>
+                <can_refund_partial_per_invoice>0</can_refund_partial_per_invoice>
+                <can_capture>0</can_capture>
+                <can_void>1</can_void>
+                <can_accept_payment>0</can_accept_payment>
+                <can_deny_payment>0</can_deny_payment>
+                <can_cancel>1</can_cancel>
+                <can_review_payment>1</can_review_payment>
+                <can_edit>0</can_edit>
+                <can_fetch_transaction_info>1</can_fetch_transaction_info>
+                <can_fetch_transaction_information>1</can_fetch_transaction_information>
+                <allowspecific>0</allowspecific>
+                <is_installment_support>0</is_installment_support>
+                <expired_pending_time>10</expired_pending_time>
+                <instructions><![CDATA[
+This is Kbank Payment gateway for Credit Card / Debit Card with full payment.
+            ]]></instructions>
+            </kbank_embedded_fullpayment>
+        </payment>
+    </default>
+</config>

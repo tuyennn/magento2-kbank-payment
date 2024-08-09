@@ -1,0 +1,64 @@
+<div class="payment-method"
+     data-bind="css: {'_active': (getCode() == isChecked())}, attr: {'data-icon': getCode()}">
+    <div class="payment-method-title field choice">
+        <input type="radio" name="payment[method]" class="radio"
+               data-bind="attr: {
+                    'id': getCode()},
+                    value: getCode(),
+                    checked: isChecked,
+                    click: selectPaymentMethod,
+                    visible: isRadioButtonVisible()"/>
+        <label class="label" data-bind="attr: {'for': getCode()}">
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
+        <div class="kbank-hidden-scripts">
+            <form method="post"
+                  data-bind="
+                        attr: {'id': getHiddenButtonEmbeddedFormElmId(), 'action': getTokenProcessActionUrl()},
+                        afterRender: initKbankFormElement"
+                  class="kbank-hidden-form"
+                  style="display: none">
+            </form>
+        </div>
+
+        <div class="actions-toolbar" data-bind="visible: !isInAction()">
+            <div class="primary">
+                <button data-role="review-save"
+                        type="submit"
+                        data-bind="click: placePendingPaymentOrder, attr: {title: $t('Continue')}, css: {disabled: !isPlaceOrderActionAllowed()}"
+                        class="button action primary checkout">
+                    <span data-bind="i18n: 'Continue'"></span>
+                </button>
+            </div>
+        </div>
+        <div data-bind="attr: {id: getCode() + '-popup-wrapper'}, visible: isInAction()">
+            <div id="popup-warning" class="message notice">
+                <div><!-- ko i18n: 'Please do not refresh the page until you complete payment.' --><!-- /ko --></div>
+            </div>
+            <!-- ko if: isPaymentReady() -->
+            <div data-bind="attr: {id: getCode() + '-popup'}, event: {load: popupLoaded}"
+                    data-container="kbank-popup"
+                    class="kbank popup"
+            >
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>

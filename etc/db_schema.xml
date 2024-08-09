@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="ghoster_kbank_token" resource="default" engine="innodb" comment="Kbank Token">
+        <column xsi:type="int" name="token_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Token Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" identity="false"
+                comment="Customer ID"/>
+        <column xsi:type="varchar" name="token" nullable="false" length="255" comment="Token"/>
+        <column xsi:type="varchar" name="order_id" nullable="true" length="20" comment="Order Increment ID"/>
+        <column xsi:type="varchar" name="payment_methods" nullable="false" length="255" comment="Payment Methods" onCreate="migrateDataFrom(paymentMethods)"/>
+        <column xsi:type="timestamp" name="created_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="varchar" name="mid" nullable="true" length="50" comment="Merchant Id"/>
+        <column xsi:type="varchar" name="dcc_currency" nullable="true" length="10" comment="DCC Currency"/>
+        <column xsi:type="varchar" name="smartpay_id" nullable="true" length="10" comment="Smartpay Id" onCreate="migrateDataFrom(smartpayid)"/>
+        <column xsi:type="varchar" name="term" nullable="true" length="5" comment="Term"/>
+        <column xsi:type="varchar" name="save_card" nullable="true" length="10" comment="Saved Card flag" onCreate="migrateDataFrom(saveCard)"/>
+        <column xsi:type="varchar" name="card_id" nullable="true" length="50" comment="Card ID" onCreate="migrateDataFrom(cardid)"/>
+        <column xsi:type="varchar" name="campaign_id" nullable="true" length="50" comment="Campaign Id"/>
+        <column xsi:type="varchar" name="terminal_id" nullable="true" length="50" comment="Terminal Id"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="token_id"/>
+        </constraint>
+
+        <constraint xsi:type="foreign" referenceId="GHOSTER_KBANK_TOKEN_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="ghoster_kbank_token" column="customer_id"
+                    referenceTable="customer_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+
+        <index referenceId="GHOSTER_KBANK_TOKEN_TOKEN_ID" indexType="btree">
+            <column name="token_id"/>
+        </index>
+    </table>
+
+    <table name="ghoster_kbank_meta" resource="default" engine="innodb" comment="Kbank Meta">
+        <column xsi:type="int" name="meta_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Meta Id"/>
+        <column xsi:type="varchar" name="order_id" nullable="true" length="20" comment="Order Increment ID"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" identity="false"
+                comment="Customer ID"/>
+
+        <column xsi:type="varchar" name="charge_id" nullable="false" length="100" comment="Charge Id"/>
+        <column xsi:type="varchar" name="object" nullable="false" length="50" comment="Object"/>
+        <column xsi:type="varchar" name="amount" nullable="true" length="20" comment="Amount"/>
+        <column xsi:type="varchar" name="currency" nullable="true" length="3" comment="Currency"/>
+        <column xsi:type="varchar" name="transaction_state" nullable="false" length="25" comment="Transaction State"/>
+        <column xsi:type="varchar" name="created" nullable="true" length="100" comment="Created"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="15" comment="Status"/>
+        <column xsi:type="varchar" name="approval_code" nullable="true" length="20" comment="Approval Code"/>
+        <column xsi:type="varchar" name="livemode" nullable="true" length="10" comment="Live Mode"/>
+        <column xsi:type="varchar" name="metadata" nullable="true" length="100" comment="Metadata"/>
+        <column xsi:type="varchar" name="failure_code" nullable="true" length="5" comment="Failure Code"/>
+        <column xsi:type="varchar" name="failure_message" nullable="true" length="100" comment="Failure Message"/>
+        <column xsi:type="varchar" name="redirect_url" nullable="true" length="1000" comment="Redirect Url"/>
+        <column xsi:type="varchar" name="card_id" nullable="true" length="255" comment="Cart ID"/>
+        <column xsi:type="varchar" name="card_brand" nullable="true" length="50" comment="Cart Brand"/>
+        <column xsi:type="varchar" name="issuer_bank" nullable="true" length="100" comment="Issuer Bank"/>
+        <column xsi:type="varchar" name="masked_pan" nullable="true" length="16" comment="Masked Pan"/>
+        <column xsi:type="varchar" name="ref_1" nullable="true" length="255" comment="Ref 1"/>
+        <column xsi:type="varchar" name="ref_2" nullable="true" length="255" comment="Ref 2"/>
+        <column xsi:type="varchar" name="ref_3" nullable="true" length="255" comment="Ref 3"/>
+        <column xsi:type="varchar" name="baht_amount" nullable="true" length="100" comment="Baht Amount"/>
+        <column xsi:type="varchar" name="rate" nullable="true" length="10" comment="Rate"/>
+        <column xsi:type="varchar" name="converted_amount" nullable="true" length="50" comment="Converted Amount"/>
+        <column xsi:type="varchar" name="converted_currency_code" nullable="true" length="5" comment="Converted Currency Code"/>
+        <column xsi:type="varchar" name="converted_currency_name" nullable="true" length="50" comment="Converted Currency Name"/>
+        <column xsi:type="varchar" name="f63" nullable="true" length="20" comment="F63"/>
+        <column xsi:type="varchar" name="mid" nullable="true" length="50" comment="Mid"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="meta_id"/>
+        </constraint>
+
+        <index referenceId="GHOSTER_KBANK_META_META_ID" indexType="btree">
+            <column name="meta_id"/>
+        </index>
+    </table>
+</schema>

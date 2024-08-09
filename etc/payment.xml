@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<payment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Payment:etc/payment.xsd">
+    <methods>
+        <method name="kbank_embedded_installment">
+            <allow_multiple_address>0</allow_multiple_address>
+        </method>
+        <method name="kbank_embedded_fullpayment">
+            <allow_multiple_address>0</allow_multiple_address>
+        </method>
+    </methods>
+</payment>

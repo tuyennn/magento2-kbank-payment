@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="kbank_embedded_payment_method_process_token_data">
+        <observer name="GhoSter_KbankPayments::record_token_data" instance="GhoSter\KbankPayments\Observer\ProcessTokenDataObserver"/>
+    </event>
+    <event name="payment_method_assign_data_kbank_embedded_installment">
+        <observer name="GhoSter_KbankPayments::payment_gateway_data_assign" instance="GhoSter\KbankPayments\Observer\InstallmentDataAssignObserver"/>
+    </event>
+    <event name="payment_method_assign_data_kbank_embedded_fullpayment">
+        <observer name="GhoSter_KbankPayments::payment_gateway_data_assign" instance="GhoSter\KbankPayments\Observer\MainDataAssignObserver"/>
+    </event>
+    <event name="kbank_embedded_payment_method_callback_validation">
+        <observer name="GhoSter_KbankPayments::callback_data_validation" instance="GhoSter\KbankPayments\Observer\ThreeDSValidationObserver"/>
+    </event>
+</config>

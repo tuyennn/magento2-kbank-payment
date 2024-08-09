@@ -1,0 +1,15 @@
+<div class="bank-installment-item"
+     data-bind="
+        attr: {
+            'id': getInstallmentElmId(),
+            'name': getInstallmentElmName(),
+            'data-smartpay-id': installment().smartpay_id,
+            'data-term-id': installment().term_id
+            },
+        click: selectInstallment"
+     css="'selected-item' : isSelected() , 'not-selected-item':!isSelected()">
+
+    <div class="box-installment-content">
+        <label data-bind="attr: {'for': getInstallmentElmId($data)}, i18n: installment().installment_title" class="label"></label>
+    </div>
+</div>
