@@ -23,6 +23,7 @@ define([
 
                 if (installmentInformation) {
                     isSelected = installmentInformation.smartpay_id == this.installment().smartpay_id &&
+                        // eslint-disable-next-line max-len
                         installmentInformation.payment_term == this.installment().payment_term; //eslint-disable-line eqeqeq
                 }
 
