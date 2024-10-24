@@ -2,7 +2,6 @@ define([
     'jquery',
     'uiClass',
     'GhoSter_KbankPayments/js/view/payment/validator-handler'
-    //phpcs:ignore Squiz.Functions.MultiLineFunctionDeclaration.SpaceBeforeOpenParen
 ], function (
     $,
     Class,
