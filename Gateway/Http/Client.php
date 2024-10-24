@@ -4,9 +4,7 @@ namespace GhoSter\KbankPayments\Gateway\Http;
 
 use InvalidArgumentException;
 use GhoSter\KbankPayments\Gateway\Config;
-use Magento\Framework\HTTP\ZendClient;
-use Magento\Framework\HTTP\ZendClientFactory;
-use Magento\Framework\Serialize\Serializer\Json;
+use Magento\PaymentServicesBase\Model\ServiceClientInterface;
 use Magento\Payment\Gateway\Http\ClientException;
 use Magento\Payment\Gateway\Http\ClientInterface;
 use Magento\Payment\Gateway\Http\TransferInterface;
@@ -23,19 +21,14 @@ class Client implements ClientInterface
     private $logger;
 
     /**
-     * @var ZendClientFactory
+     * @var ServiceClientInterface
      */
-    private $httpClientFactory;
+    private $httpClient;
 
     /**
      * @var Config
      */
     private $config;
-
-    /**
-     * @var Json
-     */
-    private $json;
 
     /**
      * @var array
@@ -44,20 +37,17 @@ class Client implements ClientInterface
 
     /**
      * @param Logger $logger
-     * @param ZendClientFactory $httpClientFactory
+     * @param ServiceClientInterface $httpClient
      * @param Config $config
-     * @param Json $json
      */
     public function __construct(
         Logger $logger,
-        ZendClientFactory $httpClientFactory,
-        Config $config,
-        Json $json
+        ServiceClientInterface $httpClient,
+        Config $config
     ) {
-        $this->httpClientFactory = $httpClientFactory;
+        $this->httpClient = $httpClient;
         $this->config = $config;
         $this->logger = $logger;
-        $this->json = $json;
     }
 
     /**
@@ -70,10 +60,10 @@ class Client implements ClientInterface
     public function placeRequest(TransferInterface $transferObject)
     {
         try {
+            $environment = $transferObject->getClientConfig() ? $transferObject->getClientConfig()['environment'] : '';
+
             $request = $transferObject->getBody();
-            $this->logData = [
-                'request' => $request,
-            ];
+            $request = array_merge($request, ['environment' => $environment]);
 
             return $this->postRequest($request);
             // phpcs:ignore Magento2.Exceptions.ThrowCatch
@@ -93,11 +83,13 @@ class Client implements ClientInterface
      *
      * @param array $request
      * @return array
-     * @throws \Zend_Http_Client_Exception
+     * @throws \Exception
      */
-    public function postRequest(&$request)
+    public function postRequest(array $request = []): array
     {
-        $this->logData['request'] = $request;
+        $this->logData = [
+            'request' => $request,
+        ];
         $payLoadType = $request['payload_type'];
         $requestType = $request['method_type'];
 
@@ -114,40 +106,29 @@ class Client implements ClientInterface
             throw new \Exception('Send first parameter must be "GET", "POST", "PUT" or "DELETE"');
         }
 
-        $url = $this->getEndpointUrl($payLoadType, $request);
-
         try {
 
-            /** @var ZendClient $client */
-            $client = $this->httpClientFactory->create();
+            $response = $this->httpClient->request(
+                $this->getRequestHeaders(),
+                $this->getEndpointUrl($payLoadType, $request),
+                $requestType,
+                empty($request) ? '' : json_encode($request),
+                'json',
+                $request['environment'] ?? ''
+            );
 
-            $client->setUri($url);
-            $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
-            $client->setHeaders([
-                'Content-Type: application/json',
-                'x-api-key: ' . $this->config->getSecretKey(),
-            ]);
+            $this->logData['response'] = $response;
 
-            $client->setMethod($requestType);
-
-            if (!empty($request)) {
-                $client->setRawData($this->json->serialize($request), 'application/json');
-            }
-
-            $responseBody = $client->request()
-                ->getBody();
-
-            $this->logData['response'] = $responseBody;
-
-            $data = $this->json->unserialize($responseBody);
         } catch (InvalidArgumentException $e) {
             // phpcs:ignore Magento2.Exceptions.DirectThrow
-            throw new \Exception('Invalid JSON was returned by the gateway');
+            throw new ClientException(
+                __('Invalid JSON was returned by the gateway.')
+            );
         } finally {
             $this->logger->debug($this->logData);
         }
 
-        return $data;
+        return $response;
     }
 
     /**
@@ -157,7 +138,7 @@ class Client implements ClientInterface
      * @param array $request
      * @return string
      */
-    private function getEndpointUrl($payloadType, &$request)
+    private function getEndpointUrl(string $payloadType, array &$request = []): string
     {
         $url = $this->config->getApiUrl();
 
@@ -197,5 +178,18 @@ class Client implements ClientInterface
         }
 
         return $url;
+    }
+
+    /**
+     * Get request headers with API key
+     *
+     * @return string[]
+     */
+    private function getRequestHeaders(): array
+    {
+        return [
+            'Content-Type: application/json',
+            'x-api-key: ' . $this->config->getSecretKey(),
+        ];
     }
 }
