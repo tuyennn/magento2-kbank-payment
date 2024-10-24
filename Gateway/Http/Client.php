@@ -85,7 +85,7 @@ class Client implements ClientInterface
      * @return array
      * @throws \Exception
      */
-    public function postRequest(array &$request = []): array
+    public function postRequest(array $request = []): array
     {
         $this->logData = [
             'request' => $request,
@@ -125,7 +125,9 @@ class Client implements ClientInterface
 
         } catch (InvalidArgumentException $e) {
             // phpcs:ignore Magento2.Exceptions.DirectThrow
-            throw new \Exception('Invalid JSON was returned by the gateway');
+            throw new ClientException(
+                __('Invalid JSON was returned by the gateway.')
+            );
         } finally {
             $this->logger->debug($this->logData);
         }
