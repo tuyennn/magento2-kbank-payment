@@ -108,12 +108,8 @@ class Client implements ClientInterface
 
         try {
 
-            $headers = [
-                'Content-Type: application/json',
-                'x-api-key: ' . $this->config->getSecretKey(),
-            ];
             $response = $this->httpClient->request(
-                $headers,
+                $this->getRequestHeaders(),
                 $this->getEndpointUrl($payLoadType, $request),
                 $requestType,
                 empty($request) ? '' : json_encode($request),
@@ -182,5 +178,18 @@ class Client implements ClientInterface
         }
 
         return $url;
+    }
+
+    /**
+     * Get request headers with API key
+     *
+     * @return string[]
+     */
+    private function getRequestHeaders(): array
+    {
+        return [
+            'Content-Type: application/json',
+            'x-api-key: ' . $this->config->getSecretKey(),
+        ];
     }
 }
